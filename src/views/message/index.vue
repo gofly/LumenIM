@@ -37,7 +37,7 @@ onUnmounted(() => {
 
 <style lang="less" scoped>
 .aside-session {
-  width: 320px;
+  width: 200px;
   position: relative;
   user-select: none;
 }

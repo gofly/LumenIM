@@ -10,9 +10,8 @@ import { isElectronMode } from '@/utils/electron'
   </section>
 
   <div class="copyright">
-    <span>©2020 - 2025 Lumen IM 在线聊天</span>
-    <span><a href="http://beian.miit.gov.cn" target="_blank">黔ICP备20006767号-2</a></span>
-    <span>Github源码</span>
+    <span>©2020 - 2025 Lumen</span>
+    <span><a href="http://beian.miit.gov.cn" target="_blank">沪ICP备20005183号-1</a></span>
   </div>
 
   <div class="fly-box">

@@ -99,9 +99,6 @@ loadDetail()
       >
         <n-form-item label="登录账号：">
           {{ hidePhone(detail.mobile) }}
-          <n-button class="mt-l15" type="primary" text @click="router.push('/settings/security')">
-            修改
-          </n-button>
         </n-form-item>
         <n-form-item label="电子邮箱：">
           {{ detail.email }}

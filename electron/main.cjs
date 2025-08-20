@@ -36,24 +36,24 @@ const initMenu = () => {
     // { role: 'appMenu' }
     ...(isMac
       ? [
-          {
-            label: app.name,
-            submenu: [
-              { role: 'about', label: `关于 ${app.name}` },
-              {
-                label: '检查更新',
-                click: () => {
-                  mainWindow && mainWindow.webContents.send('check-update')
-                }
-              },
-              { label: '代理设置' },
-              { role: 'services', label: '设置' },
-              { role: 'hide', label: `隐藏 ${app.name}` },
-              { role: 'hideOthers', label: '隐藏其它应用' },
-              { role: 'quit', label: `退出 ${app.name}` }
-            ]
-          }
-        ]
+        {
+          label: app.name,
+          submenu: [
+            { role: 'about', label: `关于 ${app.name}` },
+            {
+              label: '检查更新',
+              click: () => {
+                mainWindow && mainWindow.webContents.send('check-update')
+              }
+            },
+            { label: '代理设置' },
+            { role: 'services', label: '设置' },
+            { role: 'hide', label: `隐藏 ${app.name}` },
+            { role: 'hideOthers', label: '隐藏其它应用' },
+            { role: 'quit', label: `退出 ${app.name}` }
+          ]
+        }
+      ]
       : []),
     // { role: 'fileMenu' }
     // { role: 'editMenu' }
@@ -75,19 +75,6 @@ const initMenu = () => {
         ...(isMac
           ? [{ type: 'separator' }, { role: 'front', label: '前置所有窗口' }]
           : [{ role: 'close', label: '关闭' }])
-      ]
-    },
-    {
-      role: 'help',
-      label: '帮助',
-      submenu: [
-        {
-          label: '了解更多',
-          click: async () => {
-            const { shell } = require('electron')
-            await shell.openExternal('https://github.com/gzydong/LumenIM')
-          }
-        }
       ]
     }
   ]

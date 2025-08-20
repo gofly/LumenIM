@@ -42,6 +42,8 @@ export interface IMessage {
   quote?: {
     // 原消息ID
     quote_id: string
+    // 消息发送人nickname
+    nickname: string
     // 消息内容
     content: string
   }

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ServUserMobileUpdate } from '@/api/user'
-import { isMobile } from '@/utils/validate'
 import { ServCommonSendSmsCode } from '@/api/common'
 import { useInject, useSmsLock } from '@/hooks'
 import { rsaEncrypt } from '@/utils/rsa'
@@ -43,10 +42,6 @@ const loading = ref(false)
 const { startCountdown, Countdown } = useSmsLock('CHANGE_MOBILE_SMS', 120)
 
 const onSendSms = async () => {
-  if (!isMobile(state.mobile)) {
-    return message.warning('请正确填写手机号')
-  }
-
   const params = {
     mobile: state.mobile,
     channel: 'change_account'

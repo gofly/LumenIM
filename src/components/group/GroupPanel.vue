@@ -8,7 +8,8 @@ import {
   ServGroupDetail,
   ServGroupMemberList,
   ServGroupSecede,
-  ServGroupMemberUpdateRemark
+  ServGroupMemberUpdateRemark,
+  ServGroupJubao
 } from '@/api/group.ts'
 import { useInject } from '@/hooks'
 
@@ -33,6 +34,7 @@ const isShowGroup = ref(false)
 const isShowManage = ref(false)
 const isShowMemberList = ref(false)
 const remark = ref('')
+const reason = ref('')
 const loading = ref(false)
 const detail = reactive({
   avatar: '',
@@ -127,6 +129,20 @@ const onChangeRemark = async () => {
   editCardPopover.value.setShow(false)
   detail.visit_card = remark.value
   loadMembers()
+}
+
+const onJubao = async () => {
+  const { code } = await ServGroupJubao(
+    {
+      group_id: props.groupId,
+      remark: reason.value
+    },
+    {
+      successText: '举报成功'
+    }
+  )
+
+  if (code != 200) return
 }
 
 onMounted(() => {
@@ -244,56 +260,79 @@ onMounted(() => {
           <p class="text-ellipsis">查看更多</p>
         </div>
       </div>
+      <div v-show="loading == false" class="el-footer footer border-top">
+        <template v-if="isAdmin">
+          <n-button block type="primary" text-color="#ffffff" @click="onShowManage(true)">
+            群聊管理
+          </n-button>
+        </template>
+
+        <template v-if="!isAdmin && !isLeader">
+          <n-popconfirm
+            negative-text="取消"
+            positive-text="确定"
+            :positive-button-props="{
+              textColor: '#ffffff'
+            }"
+            @positive-click="onSignOut"
+          >
+            <template #trigger>
+              <n-button block ghost> 退出群聊 </n-button>
+            </template>
+            确定要退出群吗？ 退出后不再接收此群消息！
+          </n-popconfirm>
+        </template>
+        <n-popover trigger="click" placement="left" ref="editCardPopover">
+          <template #trigger>
+            <n-button block ghost> 举报群聊 </n-button>
+          </template>
+
+          <template #header> 举报原因 </template>
+
+          <div style="display: flex">
+            <n-input
+              type="text"
+              placeholder="请输入举报理由"
+              maxlength="10"
+              v-model:value="reason"
+              @keydown.enter="onJubao"
+            />
+            <n-button
+              type="primary"
+              text-color="#ffffff"
+              class="mt-l5"
+              @click="onJubao"
+            >
+              确定
+            </n-button>
+          </div>
+        </n-popover>
+        <template v-if="isLeader">
+          <n-button
+            style="width: 49%"
+            type="primary"
+            text-color="#ffffff"
+            @click="onShowManage(true)"
+          >
+            群聊管理
+          </n-button>
+
+          <n-popconfirm
+            negative-text="取消"
+            positive-text="确定"
+            :positive-button-props="{
+              textColor: '#ffffff'
+            }"
+            @positive-click="onSignOut"
+          >
+            <template #trigger>
+              <n-button style="width: 49%" type="error" ghost> 退出群聊 </n-button>
+            </template>
+            确定要退出群吗？ 退出后不再接收此群消息！
+          </n-popconfirm>
+        </template>
+      </div>
     </main>
-
-    <footer v-show="loading == false" class="el-footer footer border-top">
-      <template v-if="isAdmin">
-        <n-button block type="primary" text-color="#ffffff" @click="onShowManage(true)">
-          群聊管理
-        </n-button>
-      </template>
-
-      <template v-if="!isAdmin && !isLeader">
-        <n-popconfirm
-          negative-text="取消"
-          positive-text="确定"
-          :positive-button-props="{
-            textColor: '#ffffff'
-          }"
-          @positive-click="onSignOut"
-        >
-          <template #trigger>
-            <n-button block ghost> 退出群聊 </n-button>
-          </template>
-          确定要退出群吗？ 退出后不再接收此群消息！
-        </n-popconfirm>
-      </template>
-
-      <template v-if="isLeader">
-        <n-button
-          style="width: 49%"
-          type="primary"
-          text-color="#ffffff"
-          @click="onShowManage(true)"
-        >
-          群聊管理
-        </n-button>
-
-        <n-popconfirm
-          negative-text="取消"
-          positive-text="确定"
-          :positive-button-props="{
-            textColor: '#ffffff'
-          }"
-          @positive-click="onSignOut"
-        >
-          <template #trigger>
-            <n-button style="width: 49%" type="error" ghost> 退出群聊 </n-button>
-          </template>
-          确定要退出群吗？ 退出后不再接收此群消息！
-        </n-popconfirm>
-      </template>
-    </footer>
   </section>
 
   <MemberDrawer v-model="isShowMemberList" :items="members" @on-to-info="onToInfo" />
@@ -425,6 +464,9 @@ onMounted(() => {
     justify-content: space-around;
     height: 60px;
     padding: 15px;
+  }
+  .footer .n-button {
+    width: 48%;
   }
 }
 </style>

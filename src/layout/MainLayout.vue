@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import Menu from './component/Menu.vue'
-import Sponsor from './component/Sponsor.vue'
 import { isElectronMode } from '@/utils/electron.ts'
 </script>
 
@@ -17,8 +16,6 @@ import { isElectronMode } from '@/utils/electron.ts'
       </section>
     </main>
   </section>
-
-  <Sponsor />
 </template>
 <style lang="less" scoped>
 .im-container {

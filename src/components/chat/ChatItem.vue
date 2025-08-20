@@ -90,6 +90,7 @@ const onClieckSelect = (e: Event, item: IMessage) => {
                 v-if="item.render"
                 class="immsg"
                 :is="item.render()"
+                @click="onContextMenu($event, raw)"
                 @contextmenu.prevent="onContextMenu($event, raw)"
               />
             </template>
@@ -106,9 +107,9 @@ const onClieckSelect = (e: Event, item: IMessage) => {
           </div>
 
           <div v-if="item.quote?.quote_id" class="chat-content-quote">
-            <n-icon :component="ToTop" size="22" />
+            <!-- <n-icon :component="ToTop" size="22" /> -->
             <!-- TODO 点击跳转到指定的消息 -->
-            <span>回复：{{ item?.quote?.content }}</span>
+            <span>回复 {{ item?.quote?.nickname }}：{{ item?.quote?.content }}</span>
           </div>
 
           <div v-if="showToolsMenus" class="chat-tools-menus">

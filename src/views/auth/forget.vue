@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ServAuthForget } from '@/api/auth'
 import { ServCommonSendSmsCode } from '@/api/common'
-import { isMobile } from '@/utils/validate'
 import { useSmsLock } from '@/hooks'
 import { rsaEncrypt } from '@/utils/rsa'
 
@@ -22,9 +21,7 @@ const rules = {
     // @ts-expect-error
     validator(rule: any, value: string) {
       if (!value) {
-        return new Error('手机号不能为空！')
-      } else if (!isMobile(value)) {
-        return new Error('请正确填写手机号！')
+        return new Error('账号不能为空！')
       }
 
       return true
@@ -71,10 +68,6 @@ const onValidate = (e: Event) => {
 
 // 发送短信
 const onSendSms = async () => {
-  if (!isMobile(model.username)) {
-    return window['$message'].warning('请正确填写手机号')
-  }
-
   await ServCommonSendSmsCode(
     {
       mobile: model.username,

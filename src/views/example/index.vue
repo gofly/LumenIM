@@ -3,7 +3,7 @@ import encoder from '@/utils/encoder'
 
 import { uncompress } from 'snappyjs'
 
-const ws = new WebSocket('ws://127.0.0.1:9508/wss/default.io')
+const ws = new WebSocket('wss://chat.zlx.pub:31194/wss/default.io')
 ws.binaryType = 'arraybuffer'
 
 ws.onmessage = function (e) {

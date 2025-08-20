@@ -36,9 +36,10 @@ export const formatChatMessage = (loginUserId: number, chat: ITalkRecord): IMess
 
   const quote = chat?.quote
     ? {
-        quote_id: chat.quote?.quote_id || '',
-        content: chat.quote?.content || ''
-      }
+      quote_id: chat.quote?.quote_id || '',
+      nickname: chat.quote?.nickname || '',
+      content: chat.quote?.content || ''
+    }
     : undefined
 
   let status = StatusEnum.SENT

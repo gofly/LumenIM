@@ -24,6 +24,8 @@ export const ServGroupSecede = createApi('/api/v1/group/secede')
 
 export const ServGroupMemberUpdateRemark = createApi('/api/v1/group/member/update-remark')
 
+export const ServGroupJubao = createApi('/api/v1/group/jubao')
+
 export const ServGroupInviteList = createApi('/api/v1/group/invite-list')
 
 export const ServGroupMemberList = createApi('/api/v1/group/member/list')

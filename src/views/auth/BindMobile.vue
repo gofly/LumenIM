@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ServAuthOauthBind } from '@/api/auth'
-import { isMobile } from '@/utils/validate'
 import { ServCommonSendSmsCode } from '@/api/common'
 import { useInject, useSmsLock } from '@/hooks'
 
@@ -36,10 +35,6 @@ const rules = {
 const { startCountdown, Countdown } = useSmsLock('OAUTH_BIND_MOBILE_SMS', 120)
 
 const onSendSms = async () => {
-  if (!isMobile(state.mobile)) {
-    return message.warning('请正确填写手机号')
-  }
-
   const params = {
     mobile: state.mobile,
     channel: 'oauth_bind'
